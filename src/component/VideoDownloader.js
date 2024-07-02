@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import loader from '../loader.gif';
 import download from './down1.png';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const VideoDownloader = () => {
   const [url, setUrl] = useState('');
@@ -65,6 +67,7 @@ const VideoDownloader = () => {
           Download
         </button>
       </div>
+      <ToastContainer />
       <div className={`w-full max-w-lg ${links.length>0?'border border-gray-500':''} p-4 rounded-lg`}>
         {isLoading ? (
           <div className="flex justify-center my-10">
@@ -82,7 +85,7 @@ const VideoDownloader = () => {
               {links.map((link, index) => (
                 <li key={index} className="mb-6">
                   <label className="block font-semibold">Quality: {link.quality}</label>
-                  <a href={link.link} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
+                  <a href={link.link} className="text-blue-500 hover:underline" target="_blank" onClick={()=>toast.success("Downloading started.....")} rel="noopener noreferrer">
                     Download Link
                   </a>
                 </li>
