@@ -15,12 +15,12 @@ const VideoDownloader = () => {
       url: 'https://social-media-video-downloader.p.rapidapi.com/smvd/get/all',
       params: {
         url: url,
-        filename: 'Downloaded video'
+        filename: 'Downloaded video',
       },
       headers: {
         'X-RapidAPI-Key': '2a432247c1mshc79c8ff875339f2p1d10fajsn1c8a0840e79e',
-        'X-RapidAPI-Host': 'social-media-video-downloader.p.rapidapi.com'
-      }
+        'X-RapidAPI-Host': 'social-media-video-downloader.p.rapidapi.com',
+      },
     };
 
     try {
@@ -32,7 +32,7 @@ const VideoDownloader = () => {
         setVideoData({
           links: response.data.links,
           name: response.data.videoName || 'Unknown Video',
-          thumbnail: response.data.thumbnail
+          thumbnail: response.data.thumbnail,
         });
         toast.success('Video details fetched successfully!');
       } else {
@@ -55,26 +55,28 @@ const VideoDownloader = () => {
   };
 
   return (
-    <div className="flex flex-col items-center px-4 py-6 sm:px-6 md:px-8">
-    <img 
-  src='down1.png' 
-  alt='logo..' 
-  height='80px' 
-  width='80px' 
-  className="animated-logo" 
-/>
-      <h1 className="text-2xl font-bold text-center mb-5">Video Downloader - YouTube/Instagram/Facebook/TikTok</h1>
-      <div className="flex w-full max-w-md mb-5">
+    <div className="flex flex-col items-center px-4 py-6 sm:px-6 md:px-8 lg:py-10">
+      <img
+        src="down1.png"
+        alt="logo"
+        height="80"
+        width="80"
+        className="animated-logo mb-4"
+      />
+      <h1 className="text-lg md:text-2xl font-bold text-center mb-6">
+        Video Downloader - YouTube/Instagram/Facebook/TikTok
+      </h1>
+      <div className="flex flex-col sm:flex-row w-full max-w-lg gap-4 mb-5">
         <input
           type="text"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:border-blue-500"
+          className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter video URL"
         />
         <button
           onClick={handleDownload}
-          className="p-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-700"
+          className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-700 sm:rounded-r-lg sm:rounded-l-none"
         >
           Fetch Video
         </button>
@@ -88,7 +90,9 @@ const VideoDownloader = () => {
 
         {videoData && (
           <div className="my-5 text-center">
-            <h2 className="text-lg font-semibold mb-3">{videoData.name}</h2>
+            <h2 className="text-lg md:text-xl font-semibold mb-3">
+              {videoData.name}
+            </h2>
             {videoData.thumbnail ? (
               <img
                 src={videoData.thumbnail}
@@ -100,8 +104,13 @@ const VideoDownloader = () => {
             )}
             <ul className="list-none">
               {videoData.links.map((link, index) => (
-                <li key={index} className="mb-4 border p-2 rounded-lg shadow-sm">
-                  <span className="block font-semibold">Quality: {link.quality}</span>
+                <li
+                  key={index}
+                  className="mb-4 border p-3 rounded-lg shadow-sm hover:shadow-lg transition-shadow"
+                >
+                  <span className="block font-semibold mb-2">
+                    Quality: {link.quality}
+                  </span>
                   <a
                     href={link.link}
                     className="text-blue-500 hover:underline"
